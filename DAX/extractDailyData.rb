@@ -1,3 +1,4 @@
+# make Daily files from big csv file
 require 'fileutils' 
 
 if ARGV.length() < 1

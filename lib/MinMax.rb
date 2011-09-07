@@ -1,5 +1,7 @@
 class MinMax
   
+  attr_accessor :list
+  
   ACTION_TYPE = {
    :DO_NOTHING => 0, :BUY => 1, :SELL => 2
   }
@@ -11,10 +13,9 @@ class MinMax
   end
   
   def get_max_from_list ( limit )
-    max_val = @list.max
-    # TODO: rewrite to search only first value
-    max_sub_array = @list.find_all {|v| (v[0] == max_val[0]) && v[1] > limit}.sort_by(&:last)
-    max = max_sub_array[0]
+    # TODO: Review
+    sub_array = @list.find_all {|v| v[1] > limit}
+    max = sub_array.max_by(&:first)
     @list.delete max unless max.nil?
     max
   end
@@ -25,7 +26,7 @@ class MinMax
       min = @list.shift
       limit = min[1]
       max = get_max_from_list limit
-    
+
       if (!min.nil? && !max.nil? && 
           (min[1] < max[1]) && ((max[0] - min[0])> @price_range) )
         actions[min[1]] = ACTION_TYPE[:BUY]

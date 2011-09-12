@@ -1,20 +1,17 @@
 require File.expand_path(File.join('.', 'spec_helper'), File.dirname(__FILE__))
 require 'action_maker'
 require 'yaml'
-
-ACTION_TYPE = {
-   :DO_NOTHING => 0, :BUY => 1, :SELL => 2
-  }
   
 describe ActionMaker, "having array of time ordered values," do
   describe "return a list of actions, according to default settings" do 
-
+     
     before(:all) do
+      @ACTION_TYPE = { :DO_NOTHING => 0, :BUY => 1, :SELL => 2 }
       @DATA = YAML::load File.open(File.expand_path(File.join('.', 'data.yml'), File.dirname(__FILE__)))
       @GROUPED_VALUES = [5411.59, 5410.72, 5415.3, 5415.92, 5414.73]
       @EXPECTED_ACTIONS_RANGE_1 = [
-            ACTION_TYPE[:BUY], ACTION_TYPE[:BUY], 
-            ACTION_TYPE[:SELL], ACTION_TYPE[:SELL], ACTION_TYPE[:DO_NOTHING]
+            @ACTION_TYPE[:BUY], @ACTION_TYPE[:BUY], 
+            @ACTION_TYPE[:SELL], @ACTION_TYPE[:SELL], @ACTION_TYPE[:DO_NOTHING]
               ]  
     end
     
@@ -33,7 +30,7 @@ describe ActionMaker, "having array of time ordered values," do
     
     it "should find all Min/Max and return zero actions - price_range 6" do
       actions = @action_maker.find(6)
-      actions.should == Array.new(@GROUPED_VALUES.length, ACTION_TYPE[:DO_NOTHING])
+      actions.should == Array.new(@GROUPED_VALUES.length, @ACTION_TYPE[:DO_NOTHING])
     end
     
   end

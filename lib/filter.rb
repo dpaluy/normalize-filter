@@ -1,4 +1,4 @@
-require 'enumerable'
+require 'tools/enumerable'
 
 class Filter
   
@@ -6,7 +6,7 @@ class Filter
   
   def initialize(arr)
     @arr = arr.to_histogram.sort
-    cdf
+    @arr.cdf
   end
  
   def find_ranges(bits)
@@ -26,16 +26,6 @@ class Filter
     ranges_arr << @arr.last[0] # maximum
     
     #ranges = ranges_arr.each_cons(2).map{|left, right| Range.new(left, right)}
-  end
-
-private
-
-  def cdf
-    previous = 0
-    @arr.each do |value|
-      value[2] = value[1] + previous
-      previous = value[2]
-    end
   end
 
 end

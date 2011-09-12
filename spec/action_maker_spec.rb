@@ -1,18 +1,39 @@
 require File.expand_path(File.join('.', 'spec_helper'), File.dirname(__FILE__))
-require 'ActionMaker'
+require 'action_maker'
+require 'yaml'
 
+ACTION_TYPE = {
+   :DO_NOTHING => 0, :BUY => 1, :SELL => 2
+  }
+  
 describe ActionMaker, "having array of time ordered values," do
-  describe "return a list of actions, according to default settings" do
+  describe "return a list of actions, according to default settings" do 
+
+    before(:all) do
+      @DATA = YAML::load File.open(File.expand_path(File.join('.', 'data.yml'), File.dirname(__FILE__)))
+      @GROUPED_VALUES = [5411.59, 5410.72, 5415.3, 5415.92, 5414.73]
+      @EXPECTED_ACTIONS_RANGE_1 = [
+            ACTION_TYPE[:BUY], ACTION_TYPE[:BUY], 
+            ACTION_TYPE[:SELL], ACTION_TYPE[:SELL], ACTION_TYPE[:DO_NOTHING]
+              ]  
+    end
     
-    ARR = [5, 3, 10, 6, 7, 11, 2, -8, 10, 10, 14, 2] 
-    
-    before(:each) do
-      @action_maker = ActionMaker.new(ARR)
+    before(:each) do    
+      @action_maker = ActionMaker.new(@DATA)
     end
     
     it "should group values by minutes and average" do
-      time_ordered_values
-      
+      @action_maker.values.should == @GROUPED_VALUES
+    end
+    
+    it "should find all Min/Max and return list of actions - price_range 1" do
+      actions = @action_maker.find(1)
+      actions.should == @EXPECTED_ACTIONS_RANGE_1
+    end
+    
+    it "should find all Min/Max and return zero actions - price_range 6" do
+      actions = @action_maker.find(6)
+      actions.should == Array.new(@GROUPED_VALUES.length, ACTION_TYPE[:DO_NOTHING])
     end
     
   end

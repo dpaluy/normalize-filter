@@ -1,5 +1,5 @@
 require File.expand_path(File.join('.', 'spec_helper'), File.dirname(__FILE__))
-require 'MinMax' # for lib/MinMax.rb
+require 'min_max'
 
 ACTION_TYPE = { :NA => 0, :BUY => 1, :SELL => 2 }
      

@@ -27,7 +27,6 @@ describe MinMax, "having array of sorted values," do
     result = @minmax.get_max_from_list(index)
     result.should == [14, 10]
     
-    puts @minmax.list.inspect
     result = @minmax.get_max_from_list(index)
     result.should == [10, 8]
   end

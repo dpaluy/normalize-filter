@@ -11,10 +11,10 @@ class Filter
   end
 
   def find_ranges(bits)
-    intervals = 2 << (bits - 1)
+    intervals = 2 << (bits - 1)   
     maximum = @arr.last[2] # maximum
-    limit = range_size = maximum / intervals
-
+    limit = range_size = maximum / intervals.to_f #TODO: test this
+     
     ranges_arr = []
     ranges_arr << @arr.first[0] # minimum
 
@@ -25,8 +25,6 @@ class Filter
     end
 
     ranges_arr << @arr.last[0] # maximum
-
-    #ranges = ranges_arr.each_cons(2).map{|left, right| Range.new(left, right)}
   end
 
   def code_values(ranges)

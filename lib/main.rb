@@ -86,8 +86,8 @@ path = "#{DEFAULT_FOLDER}*.l"
 files = Dir[path]
 File.open("#{DEFAULT_FOLDER}input.txt","w") do |list|
   list.puts files.length
-  files.each do |f|
+  files.sort.each do |f|
     name = File.basename(f)
-    list.puts "#{name} #{name.sub(/.l/, '.ac')}"
+    list.puts "#{DEFAULT_FOLDER}#{name} #{DEFAULT_FOLDER}#{name.sub(/.l/, '.ac')}"
   end
 end

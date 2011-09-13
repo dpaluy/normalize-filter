@@ -80,3 +80,14 @@ else
   proceed(filename)
   puts 'Done'
 end
+
+#Make list of input files
+path = "#{DEFAULT_FOLDER}*.l"
+files = Dir[path]
+File.open("#{DEFAULT_FOLDER}input.txt","w") do |list|
+  list.puts files.length
+  files.each do |f|
+    name = File.basename(f)
+    list.puts "#{name} #{name.sub(/.l/, '.ac')}"
+  end
+end

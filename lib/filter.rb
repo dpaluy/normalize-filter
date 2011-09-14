@@ -13,7 +13,7 @@ class Filter
   def find_ranges(bits)
     intervals = 2 << (bits - 1)   
     maximum = @arr.last[2] # maximum
-    limit = range_size = maximum / intervals.to_f #TODO: test this
+    limit = range_size = maximum / intervals.to_f
      
     ranges_arr = []
     ranges_arr << @arr.first[0] # minimum

@@ -8,7 +8,13 @@ end
 
 current_date = ""
 infilename = ARGV[0]
-FileUtils.mkdir infilename.gsub('.csv','')
+dirname = infilename.gsub('.csv','')
+if File.directory? dirname
+  puts "The folder #{dirname} is already exists. Please delete/rename this folder before start!"
+  exit
+else
+  FileUtils.mkdir dirname
+end
 outfile = nil
 File.open(infilename,'r') do |infile|
   infile.gets # ignore first line
@@ -22,7 +28,7 @@ File.open(infilename,'r') do |infile|
         outfile.close
       end
       # open new file for writing    
-      outfilename = "#{infilename.gsub('.csv','')}/#{params[0].gsub('.','')}#{the_date.gsub('-','')}.csv"
+      outfilename = "#{infilename.gsub('.csv','')}/#{the_date.gsub('-','')}_#{params[0].gsub('.','')}.csv"
       outfile = File.open(outfilename,'w')
       puts "Open file: #{outfilename}"
     end 
@@ -34,6 +40,3 @@ end
 if !outfile.nil?
   outfile.close
 end
-
-#dir name
-#Pathname.new(__FILE__).dirname # => "/home/allen/"

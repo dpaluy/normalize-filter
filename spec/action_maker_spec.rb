@@ -1,5 +1,6 @@
 require File.expand_path(File.join('.', 'spec_helper'), File.dirname(__FILE__))
 require 'action_maker'
+require 'group_array'
 require 'yaml'
   
 describe ActionMaker, "having array of time ordered values," do
@@ -16,7 +17,8 @@ describe ActionMaker, "having array of time ordered values," do
     end
     
     before(:each) do    
-      @action_maker = ActionMaker.new(@DATA)
+      grouped_data = GroupArray.new(@DATA).get_every_min
+      @action_maker = ActionMaker.new(grouped_data)
     end
     
     it "should group values by minutes and average" do

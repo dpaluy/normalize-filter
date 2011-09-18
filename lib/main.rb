@@ -61,7 +61,7 @@ if ARGV.length < 1
   exit
 end
 
-#create default folder
+#Create default folder
 Dir.mkdir(DEFAULT_FOLDER) unless File.exists?(DEFAULT_FOLDER)
 
 if File.directory?(ARGV[0])
@@ -81,7 +81,7 @@ else
   puts 'Done'
 end
 
-#Make list of input files
+#Generate list of input files
 path = "#{DEFAULT_FOLDER}*.l"
 files = Dir[path]
 File.open("#{DEFAULT_FOLDER}input.txt","w") do |list|

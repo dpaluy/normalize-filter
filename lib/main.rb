@@ -5,7 +5,7 @@ require 'tools/progressbar'
 #SETTINGS
 RANGE_BITS = 2
 PRICE_RANGE = 3
-DEFAULT_OUTPUT_FOLDER = 'input/'
+DEFAULT_FOLDER = 'input/'
 
 ##################
 # MAIN
@@ -16,9 +16,12 @@ if ARGV.length < 1
 end
 
 #Create default folder
+Dir.mkdir(DEFAULT_FOLDER) unless File.exists?(DEFAULT_FOLDER)
+DEFAULT_OUTPUT_FOLDER = "#{DEFAULT_FOLDER}#{File.basename(ARGV[0])}/"
 Dir.mkdir(DEFAULT_OUTPUT_FOLDER) unless File.exists?(DEFAULT_OUTPUT_FOLDER)
 
-main_filter = MainFilter.new(RANGE_BITS,PRICE_RANGE,DEFAULT_OUTPUT_FOLDER)
+
+main_filter = MainFilter.new(RANGE_BITS,PRICE_RANGE, DEFAULT_OUTPUT_FOLDER)
 
 if File.directory?(ARGV[0])
   dir = ARGV[0].chomp('/')

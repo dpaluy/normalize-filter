@@ -43,14 +43,15 @@ class MainFilter
         data << [time, value]
       end
     end
-    grouped_array = GroupArray.new(data).get_every_min
+    grouped_array = GroupArray.new(data)
+    grouped_data = grouped_array.get_every_min
+    grouped_array.fill_missing_min(grouped_data)
   end
   
   def proceed(filename)
     #data input file
-    group = GroupArray.new(load_file(filename))
-    grouped_data = group.get_every_min
-    data = group.fill_missing_min(grouped_data)
+    data = load_file(filename)
+    
     #L file
     make_filter(data, File.basename(filename))
     #Action file

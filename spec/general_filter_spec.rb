@@ -1,5 +1,5 @@
 require File.expand_path(File.join('.', 'spec_helper'), File.dirname(__FILE__))
-require 'main_filter'
+require 'general_filter'
 
 describe MainFilter do
   

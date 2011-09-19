@@ -10,7 +10,7 @@ def load_data_from_file(filename)
     while (line = f.gets)
       line = line.strip
       unless line.empty?
-        arr = line.split(' ')
+        arr = line.split(' ').collect {|v| v.to_i}
         data.concat(arr)
       end
     end
@@ -36,7 +36,7 @@ def merge_files(filename1, filename2)
 
   arr1 = load_data_from_file(filename1)
   arr2 = load_data_from_file(filename2)
-  raise "Wrong data #{arr1.length} #{arr2.length}" if arr1.length != arr2.length
+  raise "Files: #{filename1} #{filename2} Wrong data #{arr1.length} #{arr2.length}" if arr1.length > arr2.length
   merged = []
   bits = 2 #TODO
   arr1.each_with_index do |v1, index|
@@ -71,14 +71,23 @@ end
 
 path1 = "#{dir1.chomp('/')}/**/*.l"
 filelist1 = Dir[path1].sort
+
 path2 = "#{dir2.chomp('/')}/**/*.l"
 filelist2 = Dir[path2].sort
 
-pbar = ProgressBar.new("#{filelist1.length} records", filelist1.length)
-filelist1.each_with_index do |f, i|
-  #merge
-  merge_files f, filelist2[i]
-  pbar.inc
+if ARGV[2] == "--dry_run" || ARGV[2] == "-d"
+  File.open("dry_run.txt","w") {|f|
+    filelist1.each_with_index {|v, index|
+      f.puts "#{v}, #{filelist2[index]}"
+    }
+  }
+  exit
+else
+  pbar = ProgressBar.new("#{filelist1.length} records", filelist1.length)
+  filelist1.each_with_index do |f, i|
+    #merge
+    merge_files f, filelist2[i]
+    pbar.inc
+  end
+  pbar.finish
 end
-pbar.finish
-

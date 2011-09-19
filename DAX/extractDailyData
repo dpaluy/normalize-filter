@@ -26,7 +26,7 @@ def extract_file(infilename)
           outfile.close
         end
         # open new file for writing
-        d = Time.parse(the_date).strftime("%m%d%Y")
+        d = Time.parse(the_date).strftime("%Y%m%d")
         outfilename = "#{infilename.gsub('.csv','')}/#{d}_#{params[0].gsub('.','')}.csv"
         outfile = File.open(outfilename,'w')
         puts "Open file: #{outfilename}"

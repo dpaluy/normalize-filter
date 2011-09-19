@@ -2,7 +2,7 @@ require 'filter'
 require 'action_maker'
 require 'group_array'
 
-class MainFilter
+class GeneralFilter
 
   def initialize(range_bits, price_range, default_output_folder)
     @range_bits = range_bits
@@ -23,9 +23,10 @@ class MainFilter
   end
   
   def make_filter(data, filename)
+    # TODO: add filter by hour/day
     filter = Filter.new( data.map {|v| v[1].to_f} )
     ranges = filter.find_ranges(@range_bits)
-    l = filter.code_values(ranges)
+    l = filter.code_values(ranges) #TODO rewrite filter
     
     File.open(@default_output_folder + filename.sub(/.csv/, '.l'),'w') do |f|
       l.each_with_index do |v, i|

@@ -1,5 +1,6 @@
 require 'tools/enumerable'
 
+#calculate L
 class Filter
 
   attr_accessor :arr

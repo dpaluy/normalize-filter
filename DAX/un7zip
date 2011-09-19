@@ -1,0 +1,31 @@
+#!/usr/bin/env ruby
+
+def extract(filename)
+  folder = File.dirname(filename)
+  cmd = "7z x #{filename} -o#{folder}"
+  value = %x[ #{cmd} ]
+  if value.index("Error:")
+    puts value 
+  else
+    puts "Unzip #{filename}"
+    File.delete filename
+  end 
+end
+
+if ARGV.length < 1
+  puts "Usage: #{__FILE__} file/directory"
+  exit
+end
+
+if File.directory?(ARGV[0])
+  dir = ARGV[0].chomp('/')
+  path = "#{dir}/**/*.7z"
+  filelist = Dir[path]
+  puts "#{filelist.length} files to be unziped"
+  filelist.each_with_index {|f, i|
+    puts  "#{i+1}/#{filelist.length}"
+    extract f
+  }
+else
+  extract ARGV[0]
+end

@@ -27,11 +27,16 @@ def save_merged_data(data, filename)
   end
 end
 
+def copy_action(filename, folder)
+  cmd = "cp #{filename} #{folder}"
+  value = %x[ #{cmd} ]
+end
+
 def merge_files(filename1, filename2)
   f1 = File.basename(filename1)
   f2 = File.basename(filename2)
-  d1 = f1[0..8]
-  d2 = f2[0..8]
+  d1 = f1[0..7]
+  d2 = f2[0..7]
   raise "Wrong dates #{d1} #{d2}" if d1 != d2
 
   arr1 = load_data_from_file(filename1)
@@ -45,8 +50,8 @@ def merge_files(filename1, filename2)
     merged << new_value.merge(bits)
   end
 
-  asset1 = f1[8..-1].sub('.l', '')
-  asset2 = f2[8..-1].sub('.l', '')
+  asset1 = f1[9..-1].sub('.l', '')
+  asset2 = f2[9..-1].sub('.l', '')
   save_merged_data(merged, "#{d1}_#{asset1}_#{asset2}.l")
 end
 
@@ -78,7 +83,12 @@ filelist2 = Dir[path2].sort
 if ARGV[2] == "--dry_run" || ARGV[2] == "-d"
   File.open("dry_run.txt","w") {|f|
     filelist1.each_with_index {|v, index|
+      f1 = File.basename(v)
+      f2 = (index < filelist2.length)? File.basename(filelist2[index]): "no file"
+      d1 = f1[0..8]
+      d2 = f2[0..8]
       f.puts "#{v}, #{filelist2[index]}"
+      exit if (d1 != d2)
     }
   }
   exit
@@ -87,7 +97,25 @@ else
   filelist1.each_with_index do |f, i|
     #merge
     merge_files f, filelist2[i]
+    copy_action f.sub(/.l/, '.ac'), DEFAULT_OUTPUT_FOLDER
     pbar.inc
   end
   pbar.finish
+
+  #Generate list of input files
+  path1 = "#{DEFAULT_OUTPUT_FOLDER}/*.l"
+  merged_list_l = Dir[path1].sort
+
+  path2 = "#{DEFAULT_OUTPUT_FOLDER}/*.ac"
+  merged_list_ac = Dir[path2].sort
+
+  File.open("#{DEFAULT_OUTPUT_FOLDER}input.txt", 'w') do |log|
+    log.puts merged_list_l.length
+    merged_list_l.each_with_index do |v, index|
+      f1 = File.basename(v)
+      f2 = (index < merged_list_ac.length)? File.basename(merged_list_ac[index]): "no file"
+      log.puts "input/#{f1} input/#{f2}"
+    end
+  end
+
 end

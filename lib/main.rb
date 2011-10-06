@@ -4,7 +4,7 @@ require 'tools/progressbar'
 
 #SETTINGS
 RANGE_BITS = 2
-PRICE_RANGE = 3
+PRICE_RANGE = 0.2
 DEFAULT_FOLDER = 'input/'
 
 ##################

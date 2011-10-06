@@ -94,7 +94,7 @@ describe Filter do
     result.should == @filter_3bit
   end
   
-  it "shoukd find ranges in float array - 2 bits" do
+  it "should find ranges in float array - 2 bits" do
     bits = 2
     filter = Filter.new(@arr_decimal)
     ranges = filter.find_ranges(bits)
@@ -102,7 +102,7 @@ describe Filter do
     ranges.should == @ranges_float_2bit
   end
   
-  it "shoukd find ranges in float array - 3 bits" do
+  it "should find ranges in float array - 3 bits" do
     bits = 3
     filter = Filter.new(@arr_decimal)
     ranges = filter.find_ranges(bits)

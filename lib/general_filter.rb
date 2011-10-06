@@ -45,8 +45,8 @@ class GeneralFilter
       end
     end
     grouped_array = GroupArray.new(data)
-    grouped_data = grouped_array.get_every_min
-    grouped_array.fill_missing_min(grouped_data)
+    grouped_data = grouped_array.get_every_min 
+    grouped_array.fill_missing_min(grouped_data) # TODO: rewrite it
   end
   
   def proceed(filename)

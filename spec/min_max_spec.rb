@@ -13,6 +13,14 @@ describe MinMax, "having array of sorted values," do
   SMALL_ACTIONS = [ ACTION_TYPE[:BUY], ACTION_TYPE[:SELL], ACTION_TYPE[:NA]]
   SMALL_ARR = [5, 10, 2]
     
+  FLOAT_ACTIONS = [ ACTION_TYPE[:BUY], ACTION_TYPE[:NA], ACTION_TYPE[:SELL], ACTION_TYPE[:NA]]
+  FLOAT_ARR = [5.02, 5.02, 10.09, 5.03 ]
+  
+  def init_float_array
+    range = 0.02
+    @minmax = MinMax.new FLOAT_ARR, range 
+  end
+  
   def init_big_array
     @minmax = MinMax.new ARR, RANGE
   end
@@ -50,4 +58,10 @@ describe MinMax, "having array of sorted values," do
     result.should == ACTIONS
   end
 
+  it "should find BUY, SELL set within a range in float array" do
+    init_float_array
+    result = @minmax.find
+    result.should == FLOAT_ACTIONS
+  end
+  
 end

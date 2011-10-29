@@ -1,19 +1,22 @@
 $LOAD_PATH << File.expand_path(File.join('..', 'lib'), File.dirname(__FILE__))
 require 'general_filter'
 require 'tools/progressbar'
-
-#SETTINGS
-RANGE_BITS = 2
-PRICE_RANGE = 0.2
-DEFAULT_FOLDER = 'input/'
+require 'cfg'
 
 ##################
 # MAIN
 ##################
 if ARGV.length < 1
+  puts "Filter CSV daily files"
   puts "Usage: #{__FILE__} file/directory"
   exit
 end
+
+#SETTINGS
+cfg = Cfg.new
+RANGE_BITS = cfg.params :param => "RANGE_BITS"
+PRICE_RANGE = fg.params :param => "PRICE_RANGE"
+DEFAULT_FOLDER = cfg.params :param => "DEFAULT_FOLDER"
 
 #Create default folder
 Dir.mkdir(DEFAULT_FOLDER) unless File.exists?(DEFAULT_FOLDER)
@@ -27,7 +30,7 @@ if File.directory?(ARGV[0])
   thread_list = []
   filelist.each_slice(10) {|v| thread_list << v}
   pbar = ProgressBar.new("#{filelist.length} records", thread_list.length)
-  
+
   thread_list.each do |list|
     t_arr = []
     list.each do |f|
@@ -38,7 +41,7 @@ if File.directory?(ARGV[0])
     end
     t_arr.each {|t| t.join }
     pbar.inc
-  end  
+  end
   pbar.finish
 else
   filename = ARGV[0]
@@ -57,3 +60,4 @@ File.open("#{DEFAULT_OUTPUT_FOLDER}input.txt","w") do |list|
     list.puts "#{DEFAULT_OUTPUT_FOLDER}#{name} #{DEFAULT_OUTPUT_FOLDER}#{name.sub(/.l/, '.ac')}"
   end
 end
+

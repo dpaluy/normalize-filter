@@ -81,7 +81,7 @@ describe Filter do
     ranges = @filter.find_ranges(bits)
     ranges.should == range_2bit
     
-    result = @filter.code_values(ranges)
+    result = @filter.code_values(ranges, @arr)
     result.should == @filter_2bit
   end
   
@@ -90,10 +90,27 @@ describe Filter do
     ranges = @filter.find_ranges(bits)
     ranges.should == range_3bit
     
-    result = @filter.code_values(ranges)
+    result = @filter.code_values(ranges, @arr)
     result.should == @filter_3bit
   end
   
+  it "should code values with given range, but different values - 2 bits" do
+    #Ranges [0, 18, 38, 59, 92]
+    values =        [-5, -7, 0, 5, 17, 38, 90, 85, 90, 100, -8, 92, 93, -0.5]
+    expected_result = [0, 0, 0, 0, 0,   1, 3,   3,  3,   3,  0,  3,  3,  0]
+    
+    result = @filter.code_values(range_2bit, values)
+    result.should == expected_result
+  end
+
+  it "should code values with given range, but different values - 3 bits" do
+    #Ranges [0, 7, 18, 26, 38, 54, 59, 71, 92]
+    values =        [-9, -5, 0, 1, 18, 19, 90, 85, 90, 100, -8, 92, 93, -0.5]
+    expected_result = [0, 0, 0, 0,  1,  2,  7,  7,  7,  7,   0, 7,   7, 0]
+    result = @filter.code_values(range_3bit, values)
+    result.should == expected_result
+  end
+
   it "should find ranges in float array - 2 bits" do
     bits = 2
     filter = Filter.new(@arr_decimal)

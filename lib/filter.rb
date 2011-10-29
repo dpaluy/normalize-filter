@@ -6,7 +6,6 @@ class Filter
   attr_accessor :arr
   
   def initialize(arr)
-    @original_values = arr
     @arr = arr.to_histogram.sort
     @arr.cdf
   end
@@ -28,14 +27,18 @@ class Filter
     ranges_arr << @arr.last[0] # maximum
   end
 
-  def code_values(ranges)
+  def code_values(ranges, values)
     result = []
-    @original_values.each_with_index do |value, i|
-      index = 1
-      until (value <= ranges[index]) do
-        index += 1
+    values.each do |value|
+      if (value >= ranges.max)
+        index = ranges.length - 2
+      else
+        index = 1
+        until (value <= ranges[index]) do
+          index += 1
+        end
+        index -= 1
       end
-      index -= 1
       result << index
     end
     

@@ -49,14 +49,14 @@ class GeneralFilter
     grouped_array.fill_missing_min(grouped_data) # TODO: rewrite it
   end
   
-  def proceed(filename)
+  def proceed(filename, action=true)
     #data input file
     data = load_file(filename)
     
     #L file
     make_filter(data, File.basename(filename))
     #Action file
-    make_action(data, File.basename(filename))
+    make_action(data, File.basename(filename)) if action
   end
   
 end

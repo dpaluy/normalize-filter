@@ -7,7 +7,7 @@ class Cfg
 
   def initialize(name = nil)
     begin
-      @c = ParseConfig.new (name || CONFIG_NAME)
+      @c = ParseConfig.new(name || CONFIG_NAME)
     rescue Errno::ENOENT
       puts "The config file you specified was not found"
       #exit

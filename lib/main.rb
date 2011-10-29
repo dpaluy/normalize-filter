@@ -16,7 +16,8 @@ end
 cfg = Cfg.new
 RANGE_BITS = cfg.params :param => "RANGE_BITS"
 PRICE_RANGE = fg.params :param => "PRICE_RANGE"
-DEFAULT_FOLDER = cfg.params :param => "DEFAULT_FOLDER"
+DEFAULT_FOLDER = cfg.params :param => "OUTPUT_FOLDER"
+MAKE_ACTION = (cfg.params :param => "MAKE_ACTION") == 'true'
 
 #Create default folder
 Dir.mkdir(DEFAULT_FOLDER) unless File.exists?(DEFAULT_FOLDER)
@@ -36,7 +37,7 @@ if File.directory?(ARGV[0])
     list.each do |f|
       t_arr << Thread.new{
         main_filter = GeneralFilter.new(RANGE_BITS,PRICE_RANGE, DEFAULT_OUTPUT_FOLDER)
-        main_filter.proceed(f)
+        main_filter.proceed(f, MAKE_ACTION)
       }
     end
     t_arr.each {|t| t.join }

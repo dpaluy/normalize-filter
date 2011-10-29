@@ -14,9 +14,10 @@ describe GeneralFilter do
     dummy_data = [["9:40", "12345"], ["9:41", "22.2"]]
     filename = "folder/temp.csv"
     mock(@filter).load_file(filename).returns(dummy_data)
-    mock(@filter).make_filter(dummy_data, "temp.csv")
-    mock(@filter).make_action(dummy_data, "temp.csv")
-    @filter.proceed(filename)
+    mock(@filter).make_hourly_filter(dummy_data, "temp.csv")
+    
+    separator = 'hourly'
+    @filter.proceed(separator, filename, false)
   end
   
   it "should load data from given filename" do
@@ -29,4 +30,5 @@ describe GeneralFilter do
     @filter.load_file(filename)
   end
   
+  #TODO
 end

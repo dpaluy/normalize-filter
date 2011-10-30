@@ -14,8 +14,8 @@ end
 
 #SETTINGS
 cfg = Cfg.new
-RANGE_BITS = cfg.params :param => "RANGE_BITS"
-PRICE_RANGE = fg.params :param => "PRICE_RANGE"
+RANGE_BITS = (cfg.params :param => "RANGE_BITS").to_i
+PRICE_RANGE = (cfg.params :param => "PRICE_RANGE").to_f
 DEFAULT_FOLDER = cfg.params :param => "OUTPUT_FOLDER"
 MAKE_ACTION = (cfg.params :param => "MAKE_ACTION") == 'true'
 SEPARATOR = cfg.params :param => "SEPARATOR"

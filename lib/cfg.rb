@@ -3,7 +3,7 @@ require 'parseconfig'
 
 class Cfg
 
-  CONFIG_NAME = 'setup.cfg'
+  CONFIG_NAME = 'filter.cfg'
 
   def initialize(name = nil)
     begin

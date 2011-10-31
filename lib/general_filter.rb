@@ -1,6 +1,8 @@
 require 'filter'
 require 'action_maker'
 require 'group_array'
+require 'time'
+require 'date'
 
 class GeneralFilter
 
@@ -43,11 +45,11 @@ class GeneralFilter
   
   def make_filter(ranged_data, values, filename)
     l = calc_l(ranged_data, values)
-    
+    day = filename[0,8]
     File.open(@default_output_folder + filename.sub(/.csv/, '.l'),'w') do |f|
-      l.each_with_index do |v, i|
-        f.print "#{v} "
-        f.puts "" if ((i % 100) == 0)
+      l.each_with_index do |v, i|       
+        timestamp = DateTime.parse("#{day} #{values[i][0]}")
+        f.puts "#{v},#{timestamp.strftime("%Y-%m-%d %H:%M")}" 
       end
     end
   end

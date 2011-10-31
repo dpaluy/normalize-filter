@@ -101,6 +101,7 @@ describe Filter do
     
     result = @filter.code_values(range_2bit, values)
     result.should == expected_result
+    result.length.should == values.length
   end
 
   it "should code values with given range, but different values - 3 bits" do
@@ -109,6 +110,7 @@ describe Filter do
     expected_result = [0, 0, 0, 0,  1,  2,  7,  7,  7,  7,   0, 7,   7, 0]
     result = @filter.code_values(range_3bit, values)
     result.should == expected_result
+    result.length.should == values.length
   end
 
   it "should find ranges in float array - 2 bits" do

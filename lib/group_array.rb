@@ -30,7 +30,7 @@ class GroupArray
     result
   end
   
-  def get_every_min
+  def merge_time(sec)
     result = []
     grouped = (@data.group_by { |v| Time.parse(v[0]).strftime("%H:%M") }).sort
     grouped.each do |v|

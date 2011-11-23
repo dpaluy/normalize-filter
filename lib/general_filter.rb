@@ -6,10 +6,11 @@ require 'date'
 
 class GeneralFilter
 
-  def initialize(range_bits, price_range, default_output_folder)
+  def initialize(group_time, range_bits, price_range, default_output_folder)
     @range_bits = range_bits
     @price_range = price_range
     @default_output_folder = default_output_folder
+    @group_time = group_time
   end
   
   def make_action(data, filename)
@@ -58,19 +59,22 @@ class GeneralFilter
     l = []
     start = 0
     values = data[start, 60]
-    
+    day = filename[0,8]
     loop = (data.length / 60.to_f).ceil
     loop.times do
       start =+ 60
       ranged_data = values  
       values = data[start, 60]
-      l << calc_l(ranged_data, values)
+      result = calc_l(ranged_data, values)
+      result.each_with_index do |v, i|
+        timestamp = DateTime.parse("#{day} #{values[i][0]}")
+        l << [v, "#{timestamp.strftime("%Y-%m-%d %H:%M")}"]
+      end
     end
 
     File.open(@default_output_folder + filename.sub(/.csv/, '.l'),'w') do |f|
-      l.each_with_index do |v, i|
-        f.print "#{v} "
-        f.puts "" if ((i % 100) == 0)
+      l.each do |v|   
+        f.puts "#{v[0]},#{v[1]}" 
       end
     end
   end
@@ -84,7 +88,7 @@ class GeneralFilter
       end
     end
     grouped_array = GroupArray.new(data)
-    grouped_data = grouped_array.get_every_min 
+    grouped_data = grouped_array.merge_time(@group_time) 
     grouped_array.fill_missing_min(grouped_data) # TODO: rewrite it
   end
   

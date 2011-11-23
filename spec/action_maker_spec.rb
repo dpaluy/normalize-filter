@@ -17,7 +17,7 @@ describe ActionMaker, "having array of time ordered values," do
     end
     
     before(:each) do    
-      grouped_data = GroupArray.new(@DATA).get_every_min
+      grouped_data = GroupArray.new(@DATA).merge_time(60)
       @action_maker = ActionMaker.new(grouped_data)
     end
     

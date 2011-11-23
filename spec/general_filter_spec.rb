@@ -4,10 +4,11 @@ require 'general_filter'
 describe GeneralFilter do
   
   before(:each) do
+    @group_time = 60
     @range_bits = 3
     @price_range = 2
     @default_output_folder = "input/"
-    @filter = GeneralFilter.new(@range_bits, @price_range, @default_output_folder)
+    @filter = GeneralFilter.new(@group_time, @range_bits, @price_range, @default_output_folder)
   end
 
   it "should load data from file and create L and Action files" do

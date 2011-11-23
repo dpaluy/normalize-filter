@@ -10,8 +10,8 @@ def load_data_from_file(filename)
     while (line = f.gets)
       line = line.strip
       unless line.empty?
-        arr = line.split(' ').collect {|v| v.to_i}
-        data.concat(arr)
+        value, time = line.split(',')
+        data << [value.to_i, time]
       end
     end
   end
@@ -21,8 +21,7 @@ end
 def save_merged_data(data, filename)
   File.open(DEFAULT_OUTPUT_FOLDER + filename,'w') do |f|
     data.each_with_index do |v, i|
-      f.print "#{v} "
-      f.puts "" if ((i % 100) == 0)
+      f.puts "#{v[0]},#{v[1]} "
     end
   end
 end
@@ -46,8 +45,9 @@ def merge_files(filename1, filename2)
   bits = 2 #TODO
   arr1.each_with_index do |v1, index|
     v2 = arr2[index]
-    new_value = [v1, v2]
-    merged << new_value.merge(bits)
+    new_value = [v1[0], v2[0]]
+    raise "Files: #{filename1} #{filename2} Wrong timestamps #{v1[1]} vs  #{v2[1]}" if v1[1] != v2[1]
+    merged << [new_value.merge(bits), v1[1]]
   end
 
   asset1 = f1[9..-1].sub('.l', '')

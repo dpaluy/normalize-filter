@@ -19,6 +19,7 @@ PRICE_RANGE = (cfg.params :param => "PRICE_RANGE").to_f
 DEFAULT_FOLDER = cfg.params :param => "OUTPUT_FOLDER"
 MAKE_ACTION = (cfg.params :param => "MAKE_ACTION") == 'true'
 SEPARATOR = cfg.params :param => "SEPARATOR"
+GROUP_TIME = (cfg.params :param => "GROUP_TIME").to_i || 60
 
 #Create default folder
 Dir.mkdir(DEFAULT_FOLDER) unless File.exists?(DEFAULT_FOLDER)
@@ -37,7 +38,7 @@ if File.directory?(ARGV[0])
     t_arr = []
     list.each do |f|
       t_arr << Thread.new{
-        main_filter = GeneralFilter.new(RANGE_BITS,PRICE_RANGE, DEFAULT_OUTPUT_FOLDER)
+        main_filter = GeneralFilter.new(GROUP_TIME, RANGE_BITS,PRICE_RANGE, DEFAULT_OUTPUT_FOLDER)
         main_filter.proceed(SEPARATOR, f, MAKE_ACTION)
       }
     end
@@ -48,7 +49,7 @@ if File.directory?(ARGV[0])
 else
   filename = ARGV[0]
   puts "Preparing #{filename}"
-  GeneralFilter.new(RANGE_BITS,PRICE_RANGE, DEFAULT_OUTPUT_FOLDER).proceed(SEPARATOR, filename, MAKE_ACTION)
+  GeneralFilter.new(GROUP_TIME, RANGE_BITS,PRICE_RANGE, DEFAULT_OUTPUT_FOLDER).proceed(SEPARATOR, filename, MAKE_ACTION)
   puts 'Done'
 end
 

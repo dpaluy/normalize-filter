@@ -54,15 +54,16 @@ class GeneralFilter
       end
     end
   end
-  
+
   def make_hourly_filter(data, filename)
     l = []
     start = 0
     values = data[start, 60]
     day = filename[0,8]
-    loop = (data.length / 60.to_f).ceil
-    loop.times do
-      start =+ 60
+    loop = (data.length / 60.to_f).ceil - 1
+
+    loop.times do |j|
+      start += 60
       ranged_data = values  
       values = data[start, 60]
       result = calc_l(ranged_data, values)
@@ -91,7 +92,7 @@ class GeneralFilter
     grouped_data = grouped_array.merge_time(@group_time) 
     grouped_array.fill_missing_min(grouped_data) # TODO: rewrite it
   end
-  
+
   def proceed(separator, filename, action=true)
     #data input file
     data = load_file(filename)

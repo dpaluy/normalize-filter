@@ -1,5 +1,6 @@
 require File.expand_path(File.join('.', 'spec_helper'), File.dirname(__FILE__))
 require 'general_filter'
+require 'yaml'
 
 describe GeneralFilter do
   
@@ -31,5 +32,10 @@ describe GeneralFilter do
     @filter.load_file(filename)
   end
   
-  #TODO
+  it 'should make hourly filter' do
+    filename = "20070102_SIE.csv"
+    DATA = YAML::load File.open(File.expand_path(File.join('.', 'daily_data.yml'), File.dirname(__FILE__)))
+#    @filter.make_hourly_filter(DATA, filename)
+    pending "TODO"   
+  end
 end

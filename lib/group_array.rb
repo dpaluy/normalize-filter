@@ -36,6 +36,7 @@ class GroupArray
     grouped.each do |v|
       t = v[0]
       average_value = (v[1].map {|val| val[1].to_f}).mean.round(2) 
+
       grouped_value = [t, average_value]
       result << grouped_value
     end

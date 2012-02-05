@@ -94,9 +94,14 @@ if ARGV[2] == "--dry_run" || ARGV[2] == "-d"
   exit
 else
   pbar = ProgressBar.new("#{filelist1.length} records", filelist1.length)
+  date1 = filelist1.map {|f| File.basename(f)[0..8]}
+  date2 = filelist2.map {|f| File.basename(f)[0..8]}
   filelist1.each_with_index do |f, i|
+    f2_index = date2.index(date1[i])
+    next if f2_index.nil?
+    
     #merge
-    merge_files f, filelist2[i]
+    merge_files f, filelist2[f2_index]
     copy_action f.sub(/.l/, '.ac'), DEFAULT_OUTPUT_FOLDER
     pbar.inc
   end

@@ -14,7 +14,12 @@ class GeneralFilter
   end
   
   def make_action(data, filename)
-    am = ActionMaker.new(data)
+  begin
+    am = ActionMaker.new(data)   
+  rescue
+    puts "******** #{filename}       *******************"
+    raise "Bad file"
+  end
     actions = am.find(@price_range)
     
     File.open(@default_output_folder + filename.sub(/.csv/, '.ac'),'w') do |f|
@@ -88,6 +93,7 @@ class GeneralFilter
         data << [time, value]
       end
     end
+    #puts "Loading #{filename}"
     grouped_array = GroupArray.new(data)
     grouped_data = grouped_array.merge_time(@group_time) 
     grouped_array.fill_missing_min(grouped_data) # TODO: rewrite it

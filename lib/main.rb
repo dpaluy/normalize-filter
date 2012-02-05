@@ -29,7 +29,7 @@ Dir.mkdir(DEFAULT_OUTPUT_FOLDER) unless File.exists?(DEFAULT_OUTPUT_FOLDER)
 if File.directory?(ARGV[0])
   dir = ARGV[0].chomp('/')
   path = "#{dir}/**/*.csv"
-  filelist = Dir[path]
+  filelist = Dir[path].sort
   thread_list = []
   filelist.each_slice(10) {|v| thread_list << v}
   pbar = ProgressBar.new("#{filelist.length} records", thread_list.length)

@@ -60,6 +60,12 @@ describe Filter do
     @filter.arr.should == @cdf
   end
   
+  it "should find ranges within 1 bit" do
+    bits = 1
+    ranges = @filter.find_ranges(bits)
+    ranges.should == [0, @arr.max]
+  end
+  
   it "should find ranges within 2 bits" do
     bits = 2
     ranges = @filter.find_ranges(bits)

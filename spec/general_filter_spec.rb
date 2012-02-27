@@ -32,10 +32,10 @@ describe GeneralFilter do
     @filter.load_file(filename)
   end
   
-  it 'should make hourly filter' do
-    filename = "20070102_SIE.csv"
-    DATA = YAML::load File.open(File.expand_path(File.join('.', 'daily_data.yml'), File.dirname(__FILE__)))
-#    @filter.make_hourly_filter(DATA, filename)
-    pending "TODO"   
-  end
+#  it 'should make hourly filter' do
+#    filename = "20070102_SIE.csv"
+#    DATA = YAML::load File.open(File.expand_path(File.join('.', 'daily_data.yml'), File.dirname(__FILE__)))
+##    @filter.make_hourly_filter(DATA, filename)
+#    pending "TODO"   
+#  end
 end

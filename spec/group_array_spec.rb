@@ -24,12 +24,12 @@ describe GroupArray, "with time ordered two dimmension array" do
     result.should == AVERAGE
   end
 
-  it "should return grouped array with average values - grouped every 2 minutes" do
+#  it "should return grouped array with average values - grouped every 2 minutes" do
 #    result = @group_array.merge_time(120)
 #    result.length.should ==  AVERAGE_120.length
 #    result.should == AVERAGE_120
-    pending "TODO"
-  end
+#    pending "TODO"
+#  end
 
   it "should fill missing minutes upon request" do
     grouped_result = @group_array.merge_time(60)

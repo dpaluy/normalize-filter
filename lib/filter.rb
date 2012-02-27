@@ -11,7 +11,7 @@ class Filter
   end
 
   def find_ranges(bits)
-    intervals = 2 << (bits - 1)   
+    intervals = (bits > 1) ? 2 << (bits - 1): 1
     maximum = @arr.last[2] # maximum
     limit = range_size = maximum / intervals.to_f
      

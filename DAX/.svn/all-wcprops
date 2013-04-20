@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 34
+/svn/!svn/ver/196/Filter/trunk/DAX
+END
+extractDailyData
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/196/Filter/trunk/DAX/extractDailyData
+END
+rename_folders.rb
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/196/Filter/trunk/DAX/rename_folders.rb
+END
+un7zip
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/svn/!svn/ver/195/Filter/trunk/DAX/un7zip
+END
+crop_data.rb
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/196/Filter/trunk/DAX/crop_data.rb
+END

@@ -4,17 +4,17 @@ require 'tools/enumerable'
 class Filter
 
   attr_accessor :arr
-
+  
   def initialize(arr)
     @arr = arr.to_histogram.sort
     @arr.cdf
   end
 
   def find_ranges(bits)
-    intervals = 2 << (bits - 1)
+    intervals = 2 << (bits - 1)   
     maximum = @arr.last[2] # maximum
     limit = range_size = maximum / intervals.to_f
-
+     
     ranges_arr = []
     ranges_arr << @arr.first[0] # minimum
 
@@ -41,7 +41,7 @@ class Filter
       end
       result << index
     end
-
+    
     result
   end
 

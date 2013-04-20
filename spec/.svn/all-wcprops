@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 35
+/svn/!svn/ver/235/Filter/trunk/spec
+END
+make_yml.rb
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/180/Filter/trunk/spec/make_yml.rb
+END
+filter_spec.rb
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/219/Filter/trunk/spec/filter_spec.rb
+END
+min_max_spec.rb
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/198/Filter/trunk/spec/min_max_spec.rb
+END
+group_array_spec.rb
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/234/Filter/trunk/spec/group_array_spec.rb
+END
+action_maker_spec.rb
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/234/Filter/trunk/spec/action_maker_spec.rb
+END
+data.yml
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/!svn/ver/180/Filter/trunk/spec/data.yml
+END
+tools_array_spec.rb
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/191/Filter/trunk/spec/tools_array_spec.rb
+END
+enumerable_spec.rb
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/181/Filter/trunk/spec/enumerable_spec.rb
+END
+spec_helper.rb
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/180/Filter/trunk/spec/spec_helper.rb
+END
+daily_data.yml
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/235/Filter/trunk/spec/daily_data.yml
+END
+general_filter_spec.rb
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/235/Filter/trunk/spec/general_filter_spec.rb
+END
